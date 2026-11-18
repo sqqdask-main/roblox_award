@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FFAGUNS Rewards</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#10130f;
+  color:white;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.container{
+  width:100%;
+  max-width:430px;
+  background:#191e19;
+  border:1px solid #344235;
+  border-radius:20px;
+  padding:22px;
+  text-align:center;
+  box-shadow:0 15px 45px #0008;
+}
+.logo{
+  color:#8bd66b;
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+.subtitle{color:#a9b4a6;font-size:13px}
+.reward-image{
+  width:190px;
+  height:190px;
+  object-fit:contain;
+  margin:20px auto;
+  display:block;
+}
+h2{font-size:23px}
+.description{
+  color:#b6c0b3;
+  font-size:14px;
+  line-height:1.8;
+}
+input{
+  width:100%;
+  padding:15px;
+  border:1px solid #435343;
+  border-radius:10px;
+  background:#101510;
+  color:white;
+  font-size:15px;
+  outline:none;
+  margin:12px 0;
+  text-align:center;
+}
+button,.game-link{
+  width:100%;
+  display:block;
+  padding:15px;
+  border:0;
+  border-radius:10px;
+  background:#70b94e;
+  color:#10170d;
+  font-weight:bold;
+  font-size:15px;
+  cursor:pointer;
+  text-decoration:none;
+  margin-top:12px;
+}
+button:disabled{opacity:.5}
+.panel{
+  background:#111711;
+  border:1px solid #344235;
+  padding:15px;
+  border-radius:12px;
+  margin-top:18px;
+}
+.hidden{display:none}
+.message{font-size:13px;color:#a9b4a6;margin-top:12px}
+.progress{
+  height:9px;
+  background:#303a30;
+  border-radius:20px;
+  overflow:hidden;
+  margin:12px 0;
+}
+.progress div{
+  height:100%;
+  width:0%;
+  background:#80d45b;
+  transition:.3s;
+}
+.code{
+  background:#0b100b;
+  padding:17px;
+  border:1px dashed #80d45b;
+  border-radius:10px;
+  font-size:22px;
+  font-weight:bold;
+  direction:ltr;
+}
+</style>
+</head>
+<body>
+<main class="container">
+
+  <div class="logo">FFAGUNS</div>
+  <p class="subtitle">OFFICIAL REWARDS</p>
+
+  <section id="home">
+    <img class="reward-image" src="spidercola.png" alt="Accessory">
+    <h2>الحصول على الإكسسوار</h2>
+    <p class="description">
+      للحصول على الإكسسوار، يجب عليك دخول لعبة FFAGUNS
+      واللعب لمدة 20 دقيقة.
+    </p>
+
+    <input id="username"
+      type="text"
+      minlength="3"
+      maxlength="30"
+      placeholder="اسم حساب Roblox">
+
+    <button onclick="start()">الحصول على الإكسسوار</button>
+    <p id="error" class="message"></p>
+  </section>
+
+  <section id="playing" class="hidden">
+    <h2>أكمل التحدي!</h2>
+    <p class="description">حسابك: <b id="playerName"></b></p>
+
+    <div class="panel">
+      <p>وقت اللعب المطلوب</p>
+      <h2>20 دقيقة</h2>
+      <div class="progress"><div id="bar"></div></div>
+      <p class="message" id="progressText">
+        يتم التحقق من وقت اللعب من السيرفر
+      </p>
+    </div>
+
+    <a class="game-link"
+      href="https://www.roblox.com/share?code=e3f56c2e988c3648b33c5c6ca4a16cf6&type=ExperienceDetails&stamp=1794965192898"
+      target="_blank" rel="noopener">
+      دخول لعبة FFAGUNS
+    </a>
+  </section>
+
+  <section id="complete" class="hidden">
+    <h2>مبروك! لقد حصلت عليه 🎉</h2>
+    <img class="reward-image" src="spidercola.png" alt="Reward">
+    <h2>الإكسسوار الخاص بك</h2>
+    <div class="code">SpiderCola</div>
+    <p class="description">استخدم الكود في نظام استلام المكافآت.</p>
+  </section>
+
+</main>
+
+<script>
+const رابط_اللعبة =
+"https://www.roblox.com/share?code=e3f56c2e988c3648b33c5c6ca4a16cf6&type=ExperienceDetails&stamp=1794965192898";
+
+function start(){
+  const اسم = document.getElementById("username").value.trim();
+  const خطأ = document.getElementById("error");
+
+  if(اسم.length < 3 || اسم.length > 30){
+    خطأ.textContent = "اسم الحساب يجب أن يكون من 3 إلى 30 حرفاً.";
+    return;
+  }
+
+  if(!/^[A-Za-z0-9_]+$/.test(اسم)){
+    خطأ.textContent = "اكتب اسم Roblox صحيحاً.";
+    return;
+  }
+
+  خطأ.textContent = "";
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("playing").classList.remove("hidden");
+  document.getElementById("playerName").textContent = اسم;
+
+  // لا نحتسب الوقت هنا؛ التحقق الحقيقي يجب أن يأتي من Backend.
+}
+</script>
+</body>
+</html>
